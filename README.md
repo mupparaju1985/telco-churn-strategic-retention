@@ -1,73 +1,82 @@
-Telecom Churn Prediction: A Value-Based Machine Learning Approach
-📌 Project Overview
-In the telecommunications industry, acquiring a new customer is 5x to 25x more expensive than retaining an existing one. This project utilizes machine learning to transition from a reactive "damage control" strategy to a proactive "revenue protection" model. By predicting churn probability and mapping it against customer value, we identify the 400 "VIPs at Risk" who represent the highest financial threat to the organization.
+📡 Telecom Churn Analytics & Strategic Revenue Protection
+📖 Executive Summary
+In the telecommunications sector, the cost gap between customer acquisition and retention is staggering—acquisition can be 5x to 25x more expensive. This project moves the organization from a reactive "damage control" stance to a proactive "revenue protection" model. Using a Random Forest ensemble and advanced data balancing (SMOTE), this pipeline identifies at-risk customers with 71% recall, specifically isolating 400 High-Value VIPs who represent the greatest financial threat to the organization.
 
-📊 Key Results
-Recall: 71% (Successfully identified 7 out of 10 actual churners).
-
-Accuracy: 79.27% on the test set.
-
-Business Impact: Segmented 400 High-Value VIPs for immediate retention outreach.
-
-Data Balancing: Overcame a 3:1 class imbalance using SMOTE.
-
-🛠️ Technical Workflow
+🛠️ The Technical Pipeline
 1. Data Engineering & Preprocessing
 
-Numeric Coercion: Converted TotalCharges from string objects to numeric floats.
+The raw dataset (7,043 records) required significant transformation to be model-ready:
 
-Imputation: Handled missing values for new customers with zero tenure.
+Type Coercion: TotalCharges was converted from string to numeric; 11 missing values for new customers were imputed with 0.
 
-Categorical Encoding: Applied One-Hot Encoding to transform 21 raw features into a 31-dimensional feature space.
+Feature Expansion: One-Hot Encoding was applied to categorical variables, resulting in a 31-dimensional feature space.
 
-2. Handling Class Imbalance (SMOTE)
+Correlation Analysis: A heatmap was used to identify multicollinearity, specifically between MonthlyCharges and TotalCharges.
 
-To prevent the model from biasing toward the majority class (non-churners), I implemented Synthetic Minority Over-sampling Technique (SMOTE). This balanced the training set to an equal 3,892 samples per class, significantly improving the model's ability to "catch" churners (Recall).
+2. Addressing Class Imbalance (SMOTE)
 
-3. Model Architecture
+The original data was imbalanced (3:1 ratio of loyalists to churners). A model trained on this would naturally bias toward "No Churn."
 
-I deployed a Random Forest Classifier (100 estimators, max depth 10). This ensemble approach was chosen for its:
+The Solution: I implemented Synthetic Minority Over-sampling Technique (SMOTE).
 
-Robustness against multicollinearity (Monthly vs. Total Charges).
+Result: Balanced the training set to 3,892 samples per class, allowing the model to learn the specific boundary between staying and leaving.
 
-Ability to capture non-linear interactions (e.g., how Month-to-Month contracts interact with Fiber Optic service).
+3. Model Architecture: Random Forest
 
+I selected a Random Forest Classifier (100 estimators, max depth 10) for its ability to handle non-linear interactions and its robustness against outliers. It effectively identifies "Interacted Risks," such as a customer having a high bill and a month-to-month contract.
 
-Shutterstock
-📈 Strategic Insights: The Risk-Value Quadrant
-The most actionable part of the project is the Strategic Risk Quadrant. Instead of just predicting "Yes/No," the model generates a probability score. We mapped this score against Monthly Charges to prioritize retention efforts:
+📊 Performance & Analysis
+Model Metrics
 
-VIPs at Risk (400 Customers): High Monthly Revenue ($70+) + High Risk (>50%). Priority 1.
+Metric	Result	Business Value
+Accuracy	79.27%	High overall reliability.
+Recall	71.00%	Successfully catches 7 out of 10 actual churners.
+Precision	60.00%	Minimizes wasted retention budget.
+Key Drivers of Churn
 
-Safe VIPs (484 Customers): High Revenue + Low Risk. Upsell targets.
+Tenure: The first 6 months are the "Danger Zone."
 
-Low-Value Risk (166 Customers): High Risk + Low Revenue. Automated monitoring.
+Payment Method: Electronic Check users churn significantly faster due to "Payment Friction."
 
-🚀 How to Use
-Clone the Repo:
+Contract Type: Month-to-month contracts are the strongest individual risk factor.
 
-Bash
-git clone https://github.com/mupparaju1985/telecom-churn-prediction.git
-Install Dependencies:
+🎯 The Strategic Risk Quadrant
+The "Hero Visual" of this project is the Risk-Value Quadrant. By mapping churn probability against monthly revenue, we segmented customers into four actionable groups:
 
-Bash
-pip install pandas scikit-learn matplotlib seaborn imbalanced-learn
-Run the Analysis:
+VIPs at Risk (400 Customers): The high-priority "Hit List." High revenue + high risk.
 
-Bash
-python churn_analysis.py
+Safe VIPs (484 Customers): High revenue + low risk. Ideal for upselling.
+
+Low-Value Risk: Managed via low-cost automated emails.
+
+Standard Customers: The stable core of the business.
+
+🚀 Deployment & Recommendations
+Targeted Outreach: Launch a high-touch loyalty campaign for the 400 VIPs at Risk.
+
+Friction Reduction: Incentivize Electronic Check users to switch to Autopay.
+
+Retraining Loop: Implement a monthly retraining cycle to adapt to new competitor pricing and market trends.
+
 📂 Project Structure
-churn_analysis.py: The main Python script containing the full pipeline.
+Strategic_Retention_Analysis.ipynb: Full Python source code.
 
-Mupparaju_Final_WhitePaper.pdf: The detailed business report.
+requirements.txt: Necessary libraries (Pandas, Scikit-learn, Imbalanced-learn).
 
-visualizations/: Folder containing the Heatmap, Feature Importance, and Risk Quadrant plots.
+whitepaper.md: Detailed technical and business report.
 
-📝 Conclusion & Recommendations
-The analysis proves that Tenure and Payment Method (specifically Electronic Checks) are the primary drivers of churn.
+images/: Generated PNG files for all 4 project visuals.
 
-Recommendation 1: Move "Electronic Check" users to "Autopay" to reduce payment friction.
+💻 Installation
+Bash
+# Clone the repository
+git clone https://github.com/mupparaju1985/telecom-churn-prediction.git
 
-Recommendation 2: Targeted loyalty offers for the 400 VIPs at Risk to move them into annual contracts.
+# Install dependencies
+pip install -r requirements.txt
 
-Author: Balakrishna Mupparaju
+# Run the model
+python Strategic_Retention_Analysis.ipynb
+
+
+#Author: Balakrishna Mupparaju
