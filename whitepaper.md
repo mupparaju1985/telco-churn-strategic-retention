@@ -13,7 +13,7 @@ The final model achieved a test-set accuracy of 79.27%. However, for a retention
 Correlation Heatmap of Numerical Features Here
 
 <p align="center">
-  <img src="images/Correlation_Heatmap_of_Numerical_Features.png" width="400">
+  <img src="images/ Correlation_Heatmap_of_Numerical_Features.png" width="400">
 </p>
  
 The analysis of behavioral drivers revealed that tenure remains the most significant predictor of risk, followed closely by the use of electronic checks as a payment method and total charges. The correlation analysis further confirmed that month-to-month contracts are the most volatile segment, with churn volume nearly matching retention volume. This suggests that "payment friction" and the cumulative financial weight of the relationship are the primary psychological drivers of a customer's decision to exit the service.
