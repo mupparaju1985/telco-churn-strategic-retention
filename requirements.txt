@@ -1,0 +1,10 @@
+# Data Manipulation
+pandas>=2.0.0
+numpy>=1.24.0
+
+# File Format Support (Optional but recommended for CSV/Excel handling)
+python-dateutil>=2.8.2
+openpyxl>=3.1.0
+
+# If you plan on plotting the "before and after" for your slides
+matplotlib>=3.7.0
