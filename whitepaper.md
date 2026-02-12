@@ -1,7 +1,7 @@
 # Strategic Retention Through Churn Prediction: Final White Paper
 ## Business Problem and Strategic Objectives
 The telecommunications industry currently operates in a saturated market, where the financial burden of acquiring a new customer is estimated to be 5 to 25 times that of retaining an existing one. High customer churn rates represent a direct and immediate threat to revenue stability and long-term profitability. Traditionally, retention strategies have been reactive, with organizations recognizing dissatisfaction only after a customer initiates a service cancellation. At this stage, recovery is both problematic and prohibitively expensive. This project successfully transitions the organization to a proactive stance by identifying high-risk customers within the upcoming billing cycle. By leveraging predictive analytics, the business can now deploy precision-targeted interventions that maximize customer lifetime value and protect the most critical revenue streams before attrition occurs.
-Background and Historical Context
+## Background and Historical Context
 Historically, customer retention in this sector relied upon broad, non-specific marketing campaigns or manual reviews of customer complaint logs. Analysts would examine aggregate churn rates following major events, such as price increases or service outages. While these methods provided historical context, they lacked the granularity required to understand individual behavioral drivers. This project builds upon that history by moving away from aggregate data toward individual-level predictive modeling. By leveraging the 7,043 unique records in the IBM Telco dataset, this initiative uncovers hidden relationships among contract structures, payment methods, and financial thresholds that traditional analysis would overlook.
 ## Data Engineering and Preprocessing Methodology
 The technical methodology began with a rigorous cleaning and engineering phase to prepare the raw data for algorithmic processing. The primary challenge was the "TotalCharges" feature, which was initially stored as a string. These records were coerced into floating-point numbers, and the 11 missing values for new customers with zero tenure were imputed as 0 to maintain the statistical integrity of the full dataset. To ensure the Random Forest algorithm could interpret categorical data, features such as internet service types and payment methods were transformed via One-Hot Encoding. This process expanded the feature space to thirty-one dimensions, creating a high-resolution map of customer behavior that allowed the model to evaluate every variable independently.
@@ -11,18 +11,34 @@ The core model selected for this project was a Random Forest Classifier with 100
 ## Analysis of Model Performance and Behavioral Drivers
 The final model achieved a test-set accuracy of 79.27%. However, for a retention-focused initiative, the most vital metric is recall, which reached 71% for the churn class. This indicates that the model successfully flags seven out of every ten actual churners before they leave the company. While the 60% precision rate suggests that some loyal customers are incorrectly flagged, these are considered manageable "safe errors" in a marketing context where the cost of a loyalty offer is vastly lower than the total loss of a customer’s future revenue.
 Correlation Heatmap of Numerical Features Here
+
+<p align="center">
+  <img src="images/Correlation_Heatmap_of_Numerical_Features.png" width="400">
+</p>
  
 The analysis of behavioral drivers revealed that tenure remains the most significant predictor of risk, followed closely by the use of electronic checks as a payment method and total charges. The correlation analysis further confirmed that month-to-month contracts are the most volatile segment, with churn volume nearly matching retention volume. This suggests that "payment friction" and the cumulative financial weight of the relationship are the primary psychological drivers of a customer's decision to exit the service.
 Customer Churn Rates by Contract Type Here
- 
+
+ <p align="center">
+  <img src="images/Customer_Churn_Rates_by_Contract_Type.png" width="400">
+</p>
+
 Strategic Customer Segmentation and the Risk Quadrant
 A primary breakthrough of this analysis was the creation of a Strategic Risk Quadrant, which moved the business logic beyond simple binary labels to a probabilistic assessment of value. By assigning a churn risk score from 0 to 100 to each customer, the population was segmented into four distinct categories. The most critical group consists of 400 "VIPs at Risk" who contribute high monthly revenue, exceeding seventy dollars, but possess a risk score above fifty percent. This group represents the highest financial threat. In contrast, 484 "Safe VIPs" were identified as high-paying but stable, making them ideal targets for upselling premium services rather than retention discounts. The remaining 711 "Standard Customers" form the stable base, while 166 "Low-Value Risks" are flagged for automated, low-cost monitoring.
 Top 10 Features for Predicting Churn Here
+
+ <p align="center">
+  <img src="images/Top _10_Features_for_Predicting_Churn.png" width="400">
+</p> 
  
 
 Strategic Customer Segmentation and the Risk Quadrant
 While identifying the probability of churn is a significant technical milestone, the true business value is unlocked by mapping that risk against the customer’s financial value. To achieve this, a Strategic Risk Quadrant was developed. This model moves beyond binary "Yes/No" predictions and instead assigns a churn probability score (0.0 to 1.0) to every customer, which is then mapped against their Monthly Charges.
 Strategic Risk Quadrant Scatter Plot Here
+
+ <p align="center">
+  <img src="images/Strategic_Risk_Quadrant.png" width="400">
+</p> 
  
 The most actionable finding from this visualization is the identification of 400 "VIPs at Risk." These customers represent the organization's highest priority because they generate high monthly revenue—exceeding $70—yet exhibit a churn probability of over 50%. By isolating this specific group, the business can move away from expensive "mass-discounting" and instead focus its high-touch human resources on the 400 accounts that represent the greatest immediate financial threat.
 The quadrant further segments the base into 484 "Safe VIPs" who are high-paying but stable, and 166 "Low-Value Risks" who, while likely to leave, have a lower impact on the bottom line. This visualization serves as a primary decision-support tool, ensuring that retention budgets are allocated with surgical precision to maximize the return on investment for every dollar spent on customer loyalty.
